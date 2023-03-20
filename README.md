@@ -1,2 +1,4 @@
 # conway
-how do i do this
+
+1. Change
+cprintf auskommentiert
