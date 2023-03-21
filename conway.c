@@ -80,10 +80,10 @@ int main(void)
   unsigned char background;
   unsigned char text;
         
-	int x;
-	int y;
-	int lebende;
-	unsigned int round = 0;
+	char x;
+	char y;
+	char lebende;
+	char round = 0;
 
   t = clock ();
 	initSpielfeld(spielfeld);
@@ -243,7 +243,7 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 
 
 void printSpielfeld(int spielfeld [][YMAX]){
-	long int x,y;
+	char x,y;
 	for(y = 0; y< YMAX; y++){
 		for(x = 0; x< XMAX; x++){
 			if(spielfeld[x][y] == 1){
@@ -259,7 +259,7 @@ void printSpielfeld(int spielfeld [][YMAX]){
 
 
 void initSpielfeld(int spielfeld [][YMAX]){
-	long int x,y;
+	char x,y;
 	//fülle das feld mit zufallswerten und gibs aus
 	for(y = 0; y< YMAX; y++){
 		for(x = 0; x< XMAX; x++){
