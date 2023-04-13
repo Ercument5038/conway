@@ -23,7 +23,7 @@ int zaehlLebende(int nachbarn[][BOXSIZE]);
 void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][YMAX]);
 
 //static const char array[XMAX][YMAX] 
-const static int array[XMAX][YMAX]= {
+const static int spielfeld[XMAX][YMAX]= {
 {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -66,7 +66,7 @@ const static int array[XMAX][YMAX]= {
 {0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
 };
 
-static int spielfeld[XMAX][YMAX];
+//static int spielfeld[XMAX][YMAX];
 static int temp[XMAX][YMAX];
 static int nachbarn[BOXSIZE][BOXSIZE];
 
@@ -254,9 +254,11 @@ void printSpielfeld(int spielfeld [][YMAX]){
 void initSpielfeld(int spielfeld [][YMAX]){
 	char x,y;
 	//fülle das feld mit zufallswerten und gibs aus
+	/*
 	for(y = 0; y< YMAX; y++){
 		for(x = 0; x< XMAX; x++){
 				spielfeld[x][y] = array[x][y];
 		}
 	}
+	*/
 }
