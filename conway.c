@@ -87,7 +87,7 @@ int main(void)
 
   t = clock ();
 	initSpielfeld(spielfeld);
-  clrscr();
+  clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_BLACK);
 	text = textcolor(COLOR_GREEN);
 	printSpielfeld(spielfeld);
@@ -203,10 +203,10 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 
 void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 	//gehe über alle nachbarn
-	unsigned int osx, ix;
-	unsigned int osy, iy; 
-	signed int ofy;
-	signed int ofx;
+	char osx, ix;
+	char osy, iy; 
+	char ofy;
+	char ofx;
 	
 	for(ofy = y-1, iy=0; ofy <= (signed int)y+1; ++ofy , ++iy){
 		for(ofx = x-1,ix = 0; ofx <= (signed int)x+1; ++ofx , ++ix){
@@ -246,13 +246,13 @@ void printSpielfeld(int spielfeld [][YMAX]){
 			} else{
 				revers(0);
 			}		
- 			cputcxy (x, y, 32);
+ 			cputcxy (x, y, 32); // moves the cursor to the given x/y position on the screen and outputs one character.
 		}
 	}
 }
 
 void initSpielfeld(int spielfeld [][YMAX]){
-	char x,y;
+	//char x,y;
 	//fülle das feld mit zufallswerten und gibs aus
 	/*
 	for(y = 0; y< YMAX; y++){
