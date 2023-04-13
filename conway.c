@@ -208,8 +208,8 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 	char ofy;
 	char ofx;
 	
-	for(ofy = y-1, iy=0; ofy <= (signed int)y+1; ++ofy , ++iy){
-		for(ofx = x-1,ix = 0; ofx <= (signed int)x+1; ++ofx , ++ix){
+	for(ofy = y-1, iy=0; ofy <= (char)y+1; ++ofy , ++iy){
+		for(ofx = x-1,ix = 0; ofx <= (char)x+1; ++ofx , ++ix){
 	
 			if( ofy < 0)	{
 				osy = YMAX-1;
