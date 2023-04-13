@@ -231,7 +231,7 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 					osx = ofx;
 				}
 		  
-			nachbarn[ix][iy] = spielfeld[osx][osy];;				
+			nachbarn[ix][iy] = spielfeld[osx][osy];			
 		}//for ofx
 	}//for ofy	
 
