@@ -86,7 +86,7 @@ int main(void)
 	char round = 0;
 
   t = clock ();
-	initSpielfeld(spielfeld);
+	//initSpielfeld(spielfeld);
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_BLACK);
 	text = textcolor(COLOR_GREEN);
@@ -179,8 +179,8 @@ void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][
 
 
 int zaehlLebende(int nachbarn[][BOXSIZE]){
-  char lebende = 0;
-  char iy, ix, flag;
+	char lebende = 0;
+	char iy, ix, flag;
 	for(iy= 0; iy < BOXSIZE ; iy++){
 		for(ix = 0; ix < BOXSIZE; ix++){
 			//prüfe dass wir nicht auf unserer eigneen position sind
@@ -198,6 +198,19 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 			}
 		}//for ix
 	}//for iy	
+
+	
+	/*
+	lebende += nachbarn[0][0];
+	lebende += nachbarn[1][0];
+	lebende += nachbarn[2][0];
+	lebende += nachbarn[0][1];
+	lebende += nachbarn[1][1];
+	lebende += nachbarn[2][1];
+	lebende += nachbarn[0][2];
+	lebende += nachbarn[1][2];
+	lebende += nachbarn[2][2];
+	*/
 	return lebende;
 }
 
@@ -211,25 +224,31 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 	for(ofy = y-1, iy=0; ofy <= (char)y+1; ++ofy , ++iy){
 		for(ofx = x-1,ix = 0; ofx <= (char)x+1; ++ofx , ++ix){
 	
-			if( ofy < 0)	{
+			if( ofy < 0)	
+			{
 				osy = YMAX-1;
 			}
-			else if( ofy > YMAX-1)	{
-					osy = 0;
-				}
-				else {
-					osy = ofy;
-				}
+			else if( ofy > YMAX-1)	
+			{
+				osy = 0;
+			}
+			else 
+			{
+				osy = ofy;
+			}
 			
-			
-			if( ofx < 0)	{
+			if( ofx < 0)	
+			{
 				osx = XMAX-1;
-			} else if( ofx > XMAX-1)	{
-					osx = 0;
-				}
-				else {
-					osx = ofx;
-				}
+			} 
+			else if( ofx > XMAX-1)	
+			{
+				osx = 0;
+			}
+			else 
+			{
+				osx = ofx;
+			}
 		  
 			nachbarn[ix][iy] = spielfeld[osx][osy];			
 		}//for ofx
@@ -251,7 +270,7 @@ void printSpielfeld(int spielfeld [][YMAX]){
 	}
 }
 
-void initSpielfeld(int spielfeld [][YMAX]){
+//void initSpielfeld(int spielfeld [][YMAX]){
 	//char x,y;
 	//fülle das feld mit zufallswerten und gibs aus
 	/*
