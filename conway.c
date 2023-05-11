@@ -179,7 +179,9 @@ void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][
 
 
 int zaehlLebende(int nachbarn[][BOXSIZE]){
+	
 	char lebende = 0;
+	/*
 	char iy, ix, flag;
 	for(iy= 0; iy < BOXSIZE ; iy++){
 		for(ix = 0; ix < BOXSIZE; ix++){
@@ -194,13 +196,13 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 			flag +=2;
 			}
 			if(flag > 21){
-				lebende += nachbarn[ix][iy] ;
+				lebende += nachbarn[ix][iy] * 7;
 			}
 		}//for ix
 	}//for iy	
-
+	*/
 	
-	/*
+	
 	lebende += nachbarn[0][0];
 	lebende += nachbarn[1][0];
 	lebende += nachbarn[2][0];
@@ -210,7 +212,7 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 	lebende += nachbarn[0][2];
 	lebende += nachbarn[1][2];
 	lebende += nachbarn[2][2];
-	*/
+
 	return lebende;
 }
 
@@ -252,8 +254,8 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 		  
 			nachbarn[ix][iy] = spielfeld[osx][osy];			
 		}//for ofx
-	}//for ofy	
-
+	}//for ofy
+	
 }
 
 void printSpielfeld(int spielfeld [][YMAX]){
@@ -279,5 +281,6 @@ void printSpielfeld(int spielfeld [][YMAX]){
 				spielfeld[x][y] = array[x][y];
 		}
 	}
-	*/
+	
 }
+*/
