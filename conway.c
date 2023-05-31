@@ -1,4 +1,4 @@
-	#include <c64.h>
+ 	#include <c64.h>
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -88,7 +88,7 @@ int main(void)
   t = clock ();
 	//initSpielfeld(spielfeld);
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
-	background = bgcolor(COLOR_WHITE);
+	background = bgcolor(COLOR_BLACK);
 	text = textcolor(COLOR_RED);
 	printSpielfeld(spielfeld);
 //	signal (int sig, __sigfunc func);
@@ -108,7 +108,7 @@ int main(void)
 			}// for x
 		}// for y
 
-		memcpy(spielfeld,temp,XMAX*YMAX); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
+		memcpy(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
 		printSpielfeld(spielfeld);	
@@ -208,6 +208,7 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 
 void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 	//gehe über alle nachbarn
+	/*
 	signed char osx, ix;
 	signed char osy, iy; 
 	signed char ofy;
@@ -245,7 +246,24 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 			nachbarn[ix][iy] = spielfeld[osx][osy];			
 		}//for ofx
 	}//for ofy
-	
+	*/
+	unsigned char osx, ix, dx;
+    unsigned char osy, iy, dy;
+
+	signed char ofx, ofy;
+
+    for (dy = 0; dy < BOXSIZE; ++dy) 
+	{
+        ofy = y - 1 + dy;
+        osy = (ofy < 0) ? YMAX - 1 : (ofy >= YMAX) ? 0 : ofy;
+
+        for (dx = 0; dx < BOXSIZE; ++dx) 
+		{
+            ofx = x - 1 + dx;
+            osx = (ofx < 0) ? XMAX - 1 : (ofx >= XMAX) ? 0 : ofx;
+            nachbarn[dx][dy] = spielfeld[osx][osy];
+        }
+    }
 }
 
 void printSpielfeld(int spielfeld [][YMAX]){
