@@ -17,7 +17,7 @@
 #define ROUNDS 100
 
 void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]);
-void initSpielfeld(int spielfeld [][YMAX]);
+//void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld(int spielfeld [][YMAX]);
 int zaehlLebende(int nachbarn[][BOXSIZE]);
 void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][YMAX]);
@@ -82,14 +82,14 @@ int main(void)
         
 	char x;
 	char y;
-	char lebende;
+	int lebende;
 	char round = 0;
 
   t = clock ();
 	//initSpielfeld(spielfeld);
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
-	background = bgcolor(COLOR_BLACK);
-	text = textcolor(COLOR_GREEN);
+	background = bgcolor(COLOR_WHITE);
+	text = textcolor(COLOR_RED);
 	printSpielfeld(spielfeld);
 //	signal (int sig, __sigfunc func);
 
@@ -103,12 +103,12 @@ int main(void)
 				findNachbarn(x,y,spielfeld,nachbarn);
 				lebende = zaehlLebende(nachbarn);
 				//gotoxy(x,y);
-				//cprintf("%d",lebende /7 );
+				//cprintf("%d",lebende);
 				pruefeRegeln(x,y,lebende , temp, spielfeld);
 			}// for x
 		}// for y
 
-		memcpy(spielfeld,temp,XMAX*YMAX);
+		memcpy(spielfeld,temp,XMAX*YMAX); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
 		printSpielfeld(spielfeld);	
@@ -145,42 +145,32 @@ int main(void)
 
 void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][YMAX]){
 	//hier kommen meine regeln
-	if(spielfeld[x][y] == 0 ){
-		if(lebende == 3){
-			temp[x][y] = 1;
-//			printf("t3\n\n");
-		}
+	
+	if(spielfeld[x][y] == 0 )
+	{
+		if(lebende == 3)
+			temp[x][y] = 1;	
 	}
-	if(spielfeld[x][y] == 1){
-		if(lebende == 2){
+	if(spielfeld[x][y] == 1)
+	{
+		if(lebende == 2)
 			temp[x][y] = 1;
-//			printf("=2\n\n");
-		}
-	}
-	if(spielfeld[x][y] == 1){
-		if(lebende == 3){
+	
+		if(lebende == 3)
 			temp[x][y] = 1;
-//			printf("=3\n\n");
-		}
-	}
-	if(spielfeld[x][y] == 1){
-		if(lebende < 2){
+
+		if(lebende < 2)
+			temp[x][y] = 0;	
+
+		if(lebende > 3)				
 			temp[x][y] = 0;
-//			printf("<2\n\n");
-		}	
-	}
-	if(spielfeld[x][y] == 1){
-		if(lebende > 3){					
-			temp[x][y] = 0;
-//			printf(">3\n\n");
-		}
 	}
 }
 
 
 int zaehlLebende(int nachbarn[][BOXSIZE]){
 	
-	char lebende = 0;
+	
 	/*
 	char iy, ix, flag;
 	for(iy= 0; iy < BOXSIZE ; iy++){
@@ -201,8 +191,8 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 		}//for ix
 	}//for iy	
 	*/
-	
-	
+	char lebende = 0;
+
 	lebende += nachbarn[0][0];
 	lebende += nachbarn[1][0];
 	lebende += nachbarn[2][0];
@@ -218,13 +208,13 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 
 void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 	//gehe über alle nachbarn
-	char osx, ix;
-	char osy, iy; 
-	char ofy;
-	char ofx;
+	signed char osx, ix;
+	signed char osy, iy; 
+	signed char ofy;
+	signed char ofx;
 	
-	for(ofy = y-1, iy=0; ofy <= (char)y+1; ++ofy , ++iy){
-		for(ofx = x-1,ix = 0; ofx <= (char)x+1; ++ofx , ++ix){
+	for(ofy = y-1, iy=0; ofy <= (signed char)y+1; ++ofy , ++iy){
+		for(ofx = x-1,ix = 0; ofx <= (signed char)x+1; ++ofx , ++ix){
 	
 			if( ofy < 0)	
 			{
@@ -264,7 +254,7 @@ void printSpielfeld(int spielfeld [][YMAX]){
 		for(x = 0; x< XMAX; x++){
 			if(spielfeld[x][y] == 1){
 				revers(1);
-			} else{
+			} else{ // hier muss noch optimiert werden
 				revers(0);
 			}		
  			cputcxy (x, y, 32); // moves the cursor to the given x/y position on the screen and outputs one character.
