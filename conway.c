@@ -14,7 +14,7 @@
 #define XMAX 40
 #define YMAX 25
 #define BOXSIZE 3
-#define ROUNDS 100
+#define ROUNDS 120
 
 void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]);
 //void initSpielfeld(int spielfeld [][YMAX]);
@@ -82,7 +82,7 @@ int main(void)
         
 	char x;
 	char y;
-	int lebende;
+	char lebende;
 	char round = 0;
 
   t = clock ();
@@ -247,8 +247,8 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
 		}//for ofx
 	}//for ofy
 	*/
-	unsigned char osx, ix, dx;
-    unsigned char osy, iy, dy;
+	unsigned char osx, dx;
+    unsigned char osy, dy;
 
 	signed char ofx, ofy;
 
@@ -265,7 +265,7 @@ void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
         }
     }
 }
-
+/*
 void printSpielfeld(int spielfeld [][YMAX]){
 	char x,y;
 	for(y = 0; y< YMAX; y++){
@@ -279,7 +279,16 @@ void printSpielfeld(int spielfeld [][YMAX]){
 		}
 	}
 }
-
+*/
+void printSpielfeld(int spielfeld[][YMAX]) {
+    unsigned char x, y;
+    for (y = 0; y < YMAX; y++) {
+        for (x = 0; x < XMAX; x++) {
+            revers(spielfeld[x][y]); // Use the value directly as the argument for revers()
+            cputcxy(x, y, 32);
+        }
+    }
+}
 //void initSpielfeld(int spielfeld [][YMAX]){
 	//char x,y;
 	//fülle das feld mit zufallswerten und gibs aus
