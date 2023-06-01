@@ -168,7 +168,7 @@ void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][
 }	
 
 int zaehlLebende(int nachbarn[][BOXSIZE]){
-	
+	// lebende direkt verändern also void methode
 	
 	/*
 	char iy, ix, flag;
