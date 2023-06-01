@@ -1,4 +1,4 @@
- 	#include <c64.h>
+#include <c64.h>
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -165,8 +165,7 @@ void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][
 		if(lebende > 3)				
 			temp[x][y] = 0;
 	}
-}
-
+}	
 
 int zaehlLebende(int nachbarn[][BOXSIZE]){
 	
@@ -206,64 +205,37 @@ int zaehlLebende(int nachbarn[][BOXSIZE]){
 	return lebende;
 }
 
-void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
-	//gehe über alle nachbarn
-	/*
-	signed char osx, ix;
-	signed char osy, iy; 
-	signed char ofy;
-	signed char ofx;
-	
-	for(ofy = y-1, iy=0; ofy <= (signed char)y+1; ++ofy , ++iy){
-		for(ofx = x-1,ix = 0; ofx <= (signed char)x+1; ++ofx , ++ix){
-	
-			if( ofy < 0)	
-			{
-				osy = YMAX-1;
-			}
-			else if( ofy > YMAX-1)	
-			{
-				osy = 0;
-			}
-			else 
-			{
-				osy = ofy;
-			}
-			
-			if( ofx < 0)	
-			{
-				osx = XMAX-1;
-			} 
-			else if( ofx > XMAX-1)	
-			{
-				osx = 0;
-			}
-			else 
-			{
-				osx = ofx;
-			}
-		  
-			nachbarn[ix][iy] = spielfeld[osx][osy];			
-		}//for ofx
-	}//for ofy
-	*/
-	unsigned char osx, dx;
-    unsigned char osy, dy;
-
-	signed char ofx, ofy;
-
-    for (dy = 0; dy < BOXSIZE; ++dy) 
-	{
-        ofy = y - 1 + dy;
-        osy = (ofy < 0) ? YMAX - 1 : (ofy >= YMAX) ? 0 : ofy;
-
-        for (dx = 0; dx < BOXSIZE; ++dx) 
-		{
-            ofx = x - 1 + dx;
-            osx = (ofx < 0) ? XMAX - 1 : (ofx >= XMAX) ? 0 : ofx;
-            nachbarn[dx][dy] = spielfeld[osx][osy];
-        }
+void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE])
+{
+	if( y - 1 < 0)    {
+            y = YMAX-1;
     }
+        else if( y > YMAX-1){
+                y = 0;
+        }
+        else {
+            y = y;
+        }    
+    if( x - 1 < 0){
+        x = XMAX-1;
+    } 
+        else if( x > XMAX-1){
+                x = 0;
+        }
+        else {
+        x = x;
+    }
+
+    nachbarn[0][0] = spielfeld[x - 1][y - 1];
+    nachbarn[0][1] = spielfeld[x][y - 1];
+    nachbarn[0][2] = spielfeld[x + 1][y - 1];
+
+    nachbarn[1][0] = spielfeld[x - 1][y];
+    nachbarn[1][2] = spielfeld[x + 1][y];
+
+    nachbarn[2][0] = spielfeld[x - 1][y + 1];
+    nachbarn[2][1] = spielfeld[x][y + 1];
+    nachbarn[2][2] = spielfeld[x + 1][y + 1];	
 }
 /*
 void printSpielfeld(int spielfeld [][YMAX]){
