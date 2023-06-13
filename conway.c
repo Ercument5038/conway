@@ -19,8 +19,8 @@
 void findNachbarn(unsigned char x, unsigned char y);
 //void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld();
-unsigned short zaehlLebende();
-void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende);
+void zaehlLebende();
+void pruefeRegeln(unsigned char x, unsigned char y);
 
 //static const char array[XMAX][YMAX] 
 const static unsigned short spielfeld[XMAX][YMAX]= {
@@ -69,6 +69,7 @@ const static unsigned short spielfeld[XMAX][YMAX]= {
 //static int spielfeld[XMAX][YMAX];
 static unsigned short temp[XMAX][YMAX];
 static unsigned char nachbarn[BOXSIZE][BOXSIZE];
+static unsigned short lebende;
 
 int main(void)
 {
@@ -82,7 +83,7 @@ int main(void)
         
   unsigned char x;
   unsigned char y;
-  unsigned short lebende;
+  
   unsigned char round = 0;
 		
   t = clock ();
@@ -97,8 +98,8 @@ int main(void)
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
 				findNachbarn(x,y);
-				lebende = zaehlLebende();
-				pruefeRegeln(x,y,lebende);
+				zaehlLebende();
+				pruefeRegeln(x,y);
 			}// for x
 		}// for y
 
@@ -137,7 +138,7 @@ int main(void)
 
 
 
-void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende){
+void pruefeRegeln(unsigned char x, unsigned char y){
 	//hier kommen meine regeln
 	
 	if(spielfeld[x][y] == 0 )
@@ -161,9 +162,7 @@ void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende){
 	}
 }	
 
-unsigned short zaehlLebende(){
-	unsigned short lebende = 0;
-
+void zaehlLebende(){
 	lebende += nachbarn[0][0];
 	lebende += nachbarn[1][0];
 	lebende += nachbarn[2][0];
@@ -173,8 +172,6 @@ unsigned short zaehlLebende(){
 	lebende += nachbarn[0][2];
 	lebende += nachbarn[1][2];
 	lebende += nachbarn[2][2];
-
-	return lebende;
 }
 
 void findNachbarn(unsigned char x, unsigned char y)
