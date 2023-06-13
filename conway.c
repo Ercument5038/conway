@@ -16,11 +16,11 @@
 #define BOXSIZE 3
 #define ROUNDS 120
 
-void findNachbarn(unsigned char x, unsigned char y);
+void findNachbarn(unsigned char x, unsigned char y, unsigned short spielfeld[][YMAX], unsigned char nachbarn[][BOXSIZE]);
 //void initSpielfeld(int spielfeld [][YMAX]);
-void printSpielfeld();
-void zaehlLebende();
-void pruefeRegeln(unsigned char x, unsigned char y);
+void printSpielfeld(unsigned short spielfeld[][YMAX]);
+unsigned short zaehlLebende();
+void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende);
 
 //static const char array[XMAX][YMAX] 
 const static unsigned short spielfeld[XMAX][YMAX]= {
@@ -69,7 +69,7 @@ const static unsigned short spielfeld[XMAX][YMAX]= {
 //static int spielfeld[XMAX][YMAX];
 static unsigned short temp[XMAX][YMAX];
 static unsigned char nachbarn[BOXSIZE][BOXSIZE];
-static unsigned short lebende;
+
 
 int main(void)
 {
@@ -80,10 +80,10 @@ int main(void)
   unsigned      fps10;
   unsigned char background;
   unsigned char text;
-        
+     
+  unsigned short lebende;
   unsigned char x;
   unsigned char y;
-  
   unsigned char round = 0;
 		
   t = clock ();
@@ -91,22 +91,22 @@ int main(void)
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_WHITE);
 	text = textcolor(COLOR_RED);
-	printSpielfeld();
+	printSpielfeld(spielfeld);
 //	signal (int sig, __sigfunc func);
 
 	while(round < ROUNDS && !kbhit()){
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
-				findNachbarn(x,y);
-				zaehlLebende();
-				pruefeRegeln(x,y);
+				findNachbarn(x,y,spielfeld, nachbarn);
+				lebende = zaehlLebende();
+				pruefeRegeln(x,y, lebende);
 			}// for x
 		}// for y
 
 		memcpy(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
-		printSpielfeld();	
+		printSpielfeld(spielfeld);	
 	}
 		t = clock() - t;
 	
@@ -138,7 +138,7 @@ int main(void)
 
 
 
-void pruefeRegeln(unsigned char x, unsigned char y){
+void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende){
 	//hier kommen meine regeln
 	
 	if(spielfeld[x][y] == 0 )
@@ -162,7 +162,9 @@ void pruefeRegeln(unsigned char x, unsigned char y){
 	}
 }	
 
-void zaehlLebende(){
+unsigned short zaehlLebende(){;
+unsigned short lebende;
+
 	lebende += nachbarn[0][0];
 	lebende += nachbarn[1][0];
 	lebende += nachbarn[2][0];
@@ -172,9 +174,11 @@ void zaehlLebende(){
 	lebende += nachbarn[0][2];
 	lebende += nachbarn[1][2];
 	lebende += nachbarn[2][2];
+
+	return lebende;
 }
 
-void findNachbarn(unsigned char x, unsigned char y)
+void findNachbarn(unsigned char x, unsigned char y, unsigned short spielfeld[][YMAX], unsigned char nachbarn[][BOXSIZE])
 {
 	if( y - 1 < 0){
 		y = YMAX-1;
@@ -207,7 +211,7 @@ void findNachbarn(unsigned char x, unsigned char y)
     nachbarn[2][2] = spielfeld[x + 1][y + 1];	
 }
 
-void printSpielfeld() {
+void printSpielfeld(unsigned short spielfeld[][YMAX]) {
     unsigned char x, y;
     for (y = 0; y < YMAX; y++) {
         for (x = 0; x < XMAX; x++) {
