@@ -14,16 +14,16 @@
 #define XMAX 40
 #define YMAX 25
 #define BOXSIZE 3
-#define ROUNDS 120
+#define ROUNDS 100
 
 void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]);
-//void initSpielfeld(int spielfeld [][YMAX]);
+void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld(int spielfeld [][YMAX]);
 int zaehlLebende(int nachbarn[][BOXSIZE]);
 void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][YMAX]);
 
 //static const char array[XMAX][YMAX] 
-const static int spielfeld[XMAX][YMAX]= {
+const static int array[XMAX][YMAX]= {
 {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -66,7 +66,7 @@ const static int spielfeld[XMAX][YMAX]= {
 {0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
 };
 
-//static int spielfeld[XMAX][YMAX];
+static int spielfeld[XMAX][YMAX];
 static int temp[XMAX][YMAX];
 static int nachbarn[BOXSIZE][BOXSIZE];
 
@@ -80,35 +80,34 @@ int main(void)
   unsigned char background;
   unsigned char text;
         
-	char x;
-	char y;
-	char lebende;
-	char round = 0;
-		
+	int x;
+	int y;
+	int lebende;
+	unsigned int round = 0;
+
   t = clock ();
-	//initSpielfeld(spielfeld);
-  clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
+	initSpielfeld(spielfeld);
+  clrscr();
 	background = bgcolor(COLOR_BLACK);
-	text = textcolor(COLOR_RED);
+	text = textcolor(COLOR_WHITE);
 	printSpielfeld(spielfeld);
 //	signal (int sig, __sigfunc func);
 
-// kbhit = keyboard press
-// here optimize important (4-errora 15 sec)
+
 	while(round < ROUNDS && !kbhit()){
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
-				//gotoxy(0,0);
-				//cprintf("%2d %2d",x , y);
+				gotoxy(0,0);
+				cprintf("%2d %2d",x , y);
 				findNachbarn(x,y,spielfeld,nachbarn);
 				lebende = zaehlLebende(nachbarn);
-				//gotoxy(x,y);
-				//cprintf("%d",lebende);
-				pruefeRegeln(x,y,lebende , temp, spielfeld);
+				gotoxy(x,y);
+				cprintf("%d",lebende /7 );
+				pruefeRegeln(x,y,lebende / 7, temp, spielfeld);
 			}// for x
 		}// for y
 
-		memcpy(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
+		memcpy(spielfeld,temp,XMAX*YMAX*2);
 	
 		round++;
 		printSpielfeld(spielfeld);	
@@ -145,131 +144,126 @@ int main(void)
 
 void pruefeRegeln(int x, int y,  int lebende, int temp[][YMAX], int spielfeld[][YMAX]){
 	//hier kommen meine regeln
-	
-	if(spielfeld[x][y] == 0 )
-	{
-		if(lebende == 3)
-			temp[x][y] = 1;	
+	if(spielfeld[x][y] == 0 ){
+		if(lebende == 3){
+			temp[x][y] = 1;
+//			printf("t3\n\n");
+		}
 	}
-	if(spielfeld[x][y] == 1)
-	{
-		if(lebende == 2)
+	if(spielfeld[x][y] == 1){
+		if(lebende == 2){
 			temp[x][y] = 1;
-	
-		if(lebende == 3)
+//			printf("=2\n\n");
+		}
+	}
+	if(spielfeld[x][y] == 1){
+		if(lebende == 3){
 			temp[x][y] = 1;
-
-		if(lebende < 2)
-			temp[x][y] = 0;	
-
-		if(lebende > 3)				
+//			printf("=3\n\n");
+		}
+	}
+	if(spielfeld[x][y] == 1){
+		if(lebende < 2){
 			temp[x][y] = 0;
+//			printf("<2\n\n");
+		}
 	}
-}	
+	if(spielfeld[x][y] == 1){
+		if(lebende > 3){					
+			temp[x][y] = 0;
+//			printf(">3\n\n");
+		}
+	}
+}
+
 
 int zaehlLebende(int nachbarn[][BOXSIZE]){
-	// lebende direkt verändern also void methode
-	
-	/*
-	char iy, ix, flag;
+  int lebende = 0;
+  int iy, ix, flag;
 	for(iy= 0; iy < BOXSIZE ; iy++){
 		for(ix = 0; ix < BOXSIZE; ix++){
 			//prüfe dass wir nicht auf unserer eigneen position sind
 			
-		  flag = 21 ;
+		  flag = 3 * 7 ;
 			
 			if(ix != 1){
-			flag += 7;
+			flag += 1 * 7;
 			}
-			if(iy != 7){
+			if(iy != 1 * 7){
 			flag +=2;
 			}
-			if(flag > 21){
+			if(flag >3 * 7){
 				lebende += nachbarn[ix][iy] * 7;
 			}
 		}//for ix
 	}//for iy	
-	*/
-	char lebende = 0;
-
-	lebende += nachbarn[0][0];
-	lebende += nachbarn[1][0];
-	lebende += nachbarn[2][0];
-	lebende += nachbarn[0][1];
-	lebende += nachbarn[1][1];
-	lebende += nachbarn[2][1];
-	lebende += nachbarn[0][2];
-	lebende += nachbarn[1][2];
-	lebende += nachbarn[2][2];
-
 	return lebende;
 }
 
-void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE])
-{
-	if( y - 1 < 0){
-		y = YMAX-1;
-    }
-    else if( y > YMAX-1){
-		y = 0;
-    }
-    else{
-        y = y;
-    }    
-    if( x - 1 < 0){
-		x = XMAX-1;
-    } 
-    else if( x > XMAX-1){
-        x = 0;
-    }
-    else{
-        x = x;
-    }
 
-    nachbarn[0][0] = spielfeld[x - 1][y - 1];
-    nachbarn[0][1] = spielfeld[x][y - 1];
-    nachbarn[0][2] = spielfeld[x + 1][y - 1];
 
-    nachbarn[1][0] = spielfeld[x - 1][y];
-    nachbarn[1][2] = spielfeld[x + 1][y];
+void findNachbarn(int x, int y, int spielfeld[][YMAX], int nachbarn[][BOXSIZE]){
+	//gehe über alle nachbarn
+	unsigned int osx, ix;
+	unsigned int osy, iy; 
+	signed int ofy;
+	signed int ofx;
+	long int temp;
+	
+	for(ofy = y-1, iy=0; ofy <= (signed int)y+1; ++ofy , ++iy){
+		for(ofx = x-1,ix = 0; ofx <= (signed int)x+1; ++ofx , ++ix){
+	
+			if( ofy < 0)	{
+				osy = YMAX-1;
+			}
+			else if( ofy > YMAX-1)	{
+					osy = 0;
+				}
+				else {
+					osy = ofy;
+				}
+			
+			
+			if( ofx < 0)	{
+				osx = XMAX-1;
+			} else if( ofx > XMAX-1)	{
+					osx = 0;
+				}
+				else {
+					osx = ofx;
+				}
+		  temp = spielfeld[osx][osy];
+			nachbarn[ix][iy] = temp;				
+		}//for ofx
+	}//for ofy	
 
-    nachbarn[2][0] = spielfeld[x - 1][y + 1];
-    nachbarn[2][1] = spielfeld[x][y + 1];
-    nachbarn[2][2] = spielfeld[x + 1][y + 1];	
 }
-/*
+
+
+
+
 void printSpielfeld(int spielfeld [][YMAX]){
-	char x,y;
+	long int x,y;
 	for(y = 0; y< YMAX; y++){
 		for(x = 0; x< XMAX; x++){
 			if(spielfeld[x][y] == 1){
 				revers(1);
-			} else{ // hier muss noch optimiert werden
+			} else{
 				revers(0);
 			}		
- 			cputcxy (x, y, 32); // moves the cursor to the given x/y position on the screen and outputs one character.
+ 			cputcxy (x, y, 32);
 		}
 	}
 }
-*/
-void printSpielfeld(int spielfeld[][YMAX]) {
-    unsigned char x, y;
-    for (y = 0; y < YMAX; y++) {
-        for (x = 0; x < XMAX; x++) {
-            revers(spielfeld[x][y]); // Use the value directly as the argument for revers()
-            cputcxy(x, y, 32);
-        }
-    }
-}
-//void initSpielfeld(int spielfeld [][YMAX]){
-	//char x,y;
+
+
+
+void initSpielfeld(int spielfeld [][YMAX]){
+	long int x,y;
 	//fülle das feld mit zufallswerten und gibs aus
-	/*
 	for(y = 0; y< YMAX; y++){
 		for(x = 0; x< XMAX; x++){
 				spielfeld[x][y] = array[x][y];
 		}
 	}
-	
 }
-*/
