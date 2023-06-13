@@ -20,7 +20,7 @@ void findNachbarn(unsigned char x, unsigned char y, unsigned short spielfeld[][Y
 //void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld(unsigned short spielfeld [][YMAX]);
 unsigned short zaehlLebende(unsigned char nachbarn[][BOXSIZE]);
-void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende, unsigned short temp[][YMAX], unsigned short spielfeld[][YMAX]);
+void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende);
 
 //static const char array[XMAX][YMAX] 
 const static unsigned short spielfeld[XMAX][YMAX]= {
@@ -93,18 +93,12 @@ int main(void)
 	printSpielfeld(spielfeld);
 //	signal (int sig, __sigfunc func);
 
-// kbhit = keyboard press
-// here optimize important (4-errora 15 sec)
 	while(round < ROUNDS && !kbhit()){
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
-				//gotoxy(0,0);
-				//cprintf("%2d %2d",x , y);
 				findNachbarn(x,y,spielfeld,nachbarn);
 				lebende = zaehlLebende(nachbarn);
-				//gotoxy(x,y);
-				//cprintf("%d",lebende);
-				pruefeRegeln(x,y,lebende , temp, spielfeld);
+				pruefeRegeln(x,y,lebende);
 			}// for x
 		}// for y
 
@@ -143,7 +137,7 @@ int main(void)
 
 
 
-void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende, unsigned short temp[][YMAX], unsigned short spielfeld[][YMAX]){
+void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende){
 	//hier kommen meine regeln
 	
 	if(spielfeld[x][y] == 0 )
@@ -168,28 +162,6 @@ void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende, unsi
 }	
 
 unsigned short zaehlLebende(unsigned char nachbarn[][BOXSIZE]){
-	// lebende direkt verändern also void methode
-	
-	/*
-	char iy, ix, flag;
-	for(iy= 0; iy < BOXSIZE ; iy++){
-		for(ix = 0; ix < BOXSIZE; ix++){
-			//prüfe dass wir nicht auf unserer eigneen position sind
-			
-		  flag = 21 ;
-			
-			if(ix != 1){
-			flag += 7;
-			}
-			if(iy != 7){
-			flag +=2;
-			}
-			if(flag > 21){
-				lebende += nachbarn[ix][iy] * 7;
-			}
-		}//for ix
-	}//for iy	
-	*/
 	unsigned short lebende = 0;
 
 	lebende += nachbarn[0][0];
@@ -237,21 +209,7 @@ void findNachbarn(unsigned char x, unsigned char y, unsigned short spielfeld[][Y
     nachbarn[2][1] = spielfeld[x][y + 1];
     nachbarn[2][2] = spielfeld[x + 1][y + 1];	
 }
-/*
-void printSpielfeld(int spielfeld [][YMAX]){
-	char x,y;
-	for(y = 0; y< YMAX; y++){
-		for(x = 0; x< XMAX; x++){
-			if(spielfeld[x][y] == 1){
-				revers(1);
-			} else{ // hier muss noch optimiert werden
-				revers(0);
-			}		
- 			cputcxy (x, y, 32); // moves the cursor to the given x/y position on the screen and outputs one character.
-		}
-	}
-}
-*/
+
 void printSpielfeld(unsigned short spielfeld[][YMAX]) {
     unsigned char x, y;
     for (y = 0; y < YMAX; y++) {
@@ -261,15 +219,3 @@ void printSpielfeld(unsigned short spielfeld[][YMAX]) {
         }
     }
 }
-//void initSpielfeld(int spielfeld [][YMAX]){
-	//char x,y;
-	//fülle das feld mit zufallswerten und gibs aus
-	/*
-	for(y = 0; y< YMAX; y++){
-		for(x = 0; x< XMAX; x++){
-				spielfeld[x][y] = array[x][y];
-		}
-	}
-	
-}
-*/
