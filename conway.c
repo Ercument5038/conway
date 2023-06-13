@@ -18,7 +18,7 @@
 
 void findNachbarn(unsigned char x, unsigned char y);
 //void initSpielfeld(int spielfeld [][YMAX]);
-void printSpielfeld(unsigned short spielfeld [][YMAX]);
+void printSpielfeld();
 unsigned short zaehlLebende();
 void pruefeRegeln(unsigned char x, unsigned char y, unsigned short lebende);
 
@@ -90,7 +90,7 @@ int main(void)
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_WHITE);
 	text = textcolor(COLOR_RED);
-	printSpielfeld(spielfeld);
+	printSpielfeld();
 //	signal (int sig, __sigfunc func);
 
 	while(round < ROUNDS && !kbhit()){
@@ -105,7 +105,7 @@ int main(void)
 		memcpy(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
-		printSpielfeld(spielfeld);	
+		printSpielfeld();	
 	}
 		t = clock() - t;
 	
@@ -210,7 +210,7 @@ void findNachbarn(unsigned char x, unsigned char y)
     nachbarn[2][2] = spielfeld[x + 1][y + 1];	
 }
 
-void printSpielfeld(unsigned short spielfeld[][YMAX]) {
+void printSpielfeld() {
     unsigned char x, y;
     for (y = 0; y < YMAX; y++) {
         for (x = 0; x < XMAX; x++) {
