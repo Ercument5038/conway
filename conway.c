@@ -16,7 +16,7 @@
 #define BOXSIZE 3
 #define ROUNDS 120
 
-void findNachbarn(unsigned char x, unsigned char y);
+//void findNachbarn(unsigned char x, unsigned char y);
 //void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld();
 //unsigned char zaehlLebende();
@@ -66,7 +66,6 @@ const static unsigned short spielfeld[XMAX][YMAX]= {
 {0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
 };
 
-//static int spielfeld[XMAX][YMAX];
 static unsigned short temp[XMAX][YMAX];
 static unsigned char nachbarn[BOXSIZE][BOXSIZE];
 unsigned char lebende;
@@ -84,6 +83,11 @@ int main(void)
         
   unsigned char x;
   unsigned char y;
+  unsigned char up;
+  unsigned char down;
+  unsigned char right;
+  unsigned char left;
+
   unsigned char round = 0;
 		
   t = clock ();
@@ -97,18 +101,44 @@ int main(void)
 	while(round < ROUNDS && !kbhit()){
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
-				findNachbarn(x,y);
+				
+				up = y - 1;
+				down = y + 1;
+				right = x + 1;
+				left = x - 1;
+
+				if (up < 0)
+				{
+					up = YMAX - 1;
+				}
+				else if (down > YMAX - 1)
+				{
+					down = 0;
+				}
+
+				if (left < 0)
+				{
+					left = XMAX - 1;
+				}
+				else if (right > XMAX - 1)
+				{
+					right = 0;
+				}
+
 				//lebende = zaehlLebende();
 				lebende = 0;
-				lebende += nachbarn[0][0];
-				lebende += nachbarn[1][0];
-				lebende += nachbarn[2][0];
-				lebende += nachbarn[0][1];
-				//lebende += nachbarn[1][1];
-				lebende += nachbarn[2][1];
-				lebende += nachbarn[0][2];
-				lebende += nachbarn[1][2];
-				lebende += nachbarn[2][2];
+				// upper row
+				lebende += spielfeld[left][up];
+				lebende += spielfeld[x][up];
+				lebende += spielfeld[right][up];
+				// middle row without center
+				lebende += spielfeld[left][y];
+				lebende += spielfeld[right][y];
+				// lower row
+				lebende += spielfeld[left][down];
+				lebende += spielfeld[x][down];
+				lebende += spielfeld[right][down];
+				
 				//pruefeRegeln(x,y,lebende);
 				switch(lebende)
 				{
@@ -197,6 +227,7 @@ unsigned char zaehlLebende(){
 	return lebende;
 }
 */
+/*
 void findNachbarn(unsigned char x, unsigned char y)
 {
 	if( y - 1 < 0){
@@ -229,7 +260,7 @@ void findNachbarn(unsigned char x, unsigned char y)
     nachbarn[2][1] = spielfeld[x][y + 1];
     nachbarn[2][2] = spielfeld[x + 1][y + 1];	
 }
-
+*/
 void printSpielfeld() {
     unsigned char x, y;
     for (y = 0; y < YMAX; y++) {
