@@ -97,7 +97,17 @@ int main(void)
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
 				findNachbarn(x,y);
-				lebende = zaehlLebende();
+				//lebende = zaehlLebende();
+				lebende = 0;
+				lebende += nachbarn[0][0];
+				lebende += nachbarn[1][0];
+				lebende += nachbarn[2][0];
+				lebende += nachbarn[0][1];
+				//lebende += nachbarn[1][1];
+				lebende += nachbarn[2][1];
+				lebende += nachbarn[0][2];
+				lebende += nachbarn[1][2];
+				lebende += nachbarn[2][2];
 				//pruefeRegeln(x,y,lebende);
 				switch(lebende)
 				{
@@ -168,11 +178,11 @@ void pruefeRegeln(unsigned char x, unsigned char y, unsigned char lebende){
 		if(lebende > 3)				
 			temp[x][y] = 0;
 	}
-}	
 */
+/*
 unsigned char zaehlLebende(){
 	unsigned char lebende = 0;
-
+	// lebende global machen
 	lebende += nachbarn[0][0];
 	lebende += nachbarn[1][0];
 	lebende += nachbarn[2][0];
@@ -185,7 +195,7 @@ unsigned char zaehlLebende(){
 
 	return lebende;
 }
-
+*/
 void findNachbarn(unsigned char x, unsigned char y)
 {
 	if( y - 1 < 0){
