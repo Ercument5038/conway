@@ -69,6 +69,8 @@ const static unsigned short spielfeld[XMAX][YMAX]= {
 //static int spielfeld[XMAX][YMAX];
 static unsigned short temp[XMAX][YMAX];
 static unsigned char nachbarn[BOXSIZE][BOXSIZE];
+unsigned char lebende;
+
 
 int main(void)
 {
@@ -82,7 +84,6 @@ int main(void)
         
   unsigned char x;
   unsigned char y;
-  unsigned char lebende;
   unsigned char round = 0;
 		
   t = clock ();
