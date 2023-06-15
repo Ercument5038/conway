@@ -73,22 +73,14 @@ int main(void)
 	unsigned char background;
 	unsigned char text;
 	
-	unsigned char lebende;
-	signed char up;
-	signed char down;
-	signed char right;
-	signed char left;
-	unsigned char x;
-	unsigned char y;
-	unsigned char round = 0;
-	unsigned char i, j;
+	register signed char lebende, up, down, right, left, x, y, round, i, j;
 
- 
+	t = clock();
 
 	clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_WHITE);
 	text = textcolor(COLOR_RED);
-	t = clock ();
+	
 	for (i = 0; i < YMAX; i++) 
 	{
         for (j = 0; j < XMAX; j++) 
@@ -100,7 +92,6 @@ int main(void)
 
 	while(round < ROUNDS && !kbhit())
 	{
-		
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
 
