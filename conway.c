@@ -84,6 +84,10 @@ int main(void)
         
   unsigned char x;
   unsigned char y;
+  signed char up;
+  signed char down;
+  signed char right;
+  signed char left;
   unsigned char round = 0;
 		
   t = clock ();
@@ -98,33 +102,49 @@ int main(void)
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
 				findNachbarn(x,y);
+
+				up = y - 1;
+				down = y + 1;
+				right = x + 1;
+				left = x - 1;
+
+				if (up < 0)
+				{
+					up = YMAX -1;
+				}
+				else if (down > YMAX -1)
+				{
+					down = 0;
+				}
+
+				if (left < 0)
+				{
+					left = XMAX -1;
+				}
+				else if (right > XMAX -1)
+				{
+					right = 0;
+				}
+
+
+
 				//lebende = zaehlLebende();
 				lebende = 0;
-				lebende += nachbarn[0][0];
-				lebende += nachbarn[1][0];
-				lebende += nachbarn[2][0];
-				lebende += nachbarn[0][1];
-				//lebende += nachbarn[1][1];
-				lebende += nachbarn[2][1];
-				lebende += nachbarn[0][2];
-				lebende += nachbarn[1][2];
-				lebende += nachbarn[2][2];
+				lebende += spielfeld[left][up];
+				lebende += spielfeld[x][up];
+				lebende += spielfeld[right][up];
+				
+				lebende += spielfeld[left][y];
+				lebende += spielfeld[right][y];
+				
+				lebende += spielfeld[left][down];
+				lebende += spielfeld[x][down];
+				lebende += spielfeld[right][down];
+				
+
 				//pruefeRegeln(x,y,lebende);
-				if (spielfeld[x][y] == 1)
-				{
-					if (lebende < 2 || lebende > 3)
-					{
-						temp[x][y] = 0;
-					}
-				}
-				else
-				{
-					if (lebende == 3)
-					{
-						temp[x][y] = 1;
-					}
-				}
-				/*
+				
+				
 				switch(lebende)
 				{
 					case 2: temp[x][y] = spielfeld[x][y];
@@ -133,7 +153,7 @@ int main(void)
 					break;
 					default: temp[x][y] = 0;
 					break;
-				}*/
+				}
 			}// for x
 		}// for y
 
