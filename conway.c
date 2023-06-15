@@ -16,17 +16,8 @@
 #define BOXSIZE 3
 #define ROUNDS 120
 
-<<<<<<< HEAD
-//void findNachbarn(unsigned char x, unsigned char y);
-=======
-//Void findNachbarn(unsigned char x, unsigned char y);
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
-//void initSpielfeld(int spielfeld [][YMAX]);
-//void printSpielfeld();
-//unsigned char zaehlLebende();
-//void pruefeRegeln(unsigned char x, unsigned char y, unsigned char lebende);
 
-//static const char array[XMAX][YMAX] 
+
 const static unsigned short spielfeld[XMAX][YMAX]= {
 {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
@@ -71,30 +62,9 @@ const static unsigned short spielfeld[XMAX][YMAX]= {
 };
 
 static unsigned short temp[XMAX][YMAX];
-//static unsigned char nachbarn[BOXSIZE][BOXSIZE];
 
 int main(void)
 {
-<<<<<<< HEAD
-  clock_t       t;
-  unsigned long sec;
-  unsigned      sec10;
-  unsigned long fps;
-  unsigned      fps10;
-  unsigned char background;
-  unsigned char text;
-        
-  unsigned char x;
-  unsigned char y;
-  unsigned char up;
-  unsigned char down;
-  unsigned char right;
-  unsigned char left;
-
-  unsigned char round = 0;
-		
-  t = clock ();
-=======
 	clock_t       t;
 	unsigned long sec;
 	unsigned      sec10;
@@ -113,14 +83,12 @@ int main(void)
 	unsigned char round = 0;
 	unsigned char i, j;
 
-  
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
-	//initSpielfeld(spielfeld);
-  clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
+ 
+
+	clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_WHITE);
 	text = textcolor(COLOR_RED);
 	t = clock ();
-	//printSpielfeld();
 	for (i = 0; i < YMAX; i++) 
 	{
         for (j = 0; j < XMAX; j++) 
@@ -135,49 +103,30 @@ int main(void)
 		
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
-<<<<<<< HEAD
-				
-=======
-				//findNachbarn(x,y);
 
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
 				up = y - 1;
 				down = y + 1;
 				right = x + 1;
 				left = x - 1;
-
+				// calc if the neighbor is outside the spielfeld
 				if (up < 0)
 				{
-<<<<<<< HEAD
-					up = YMAX - 1;
-				}
-				else if (down > YMAX - 1)
-=======
 					up = 24;
 				}
 				else if (down > 24)
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
 				{
 					down = 0;
 				}
 
 				if (left < 0)
 				{
-<<<<<<< HEAD
-					left = XMAX - 1;
-				}
-				else if (right > XMAX - 1)
-=======
 					left = 39;
 				}
 				else if (right > 39)
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
 				{
 					right = 0;
 				}
 
-<<<<<<< HEAD
-				//lebende = zaehlLebende();
 				lebende = 0;
 				// upper row
 				lebende += spielfeld[left][up];
@@ -187,30 +136,10 @@ int main(void)
 				lebende += spielfeld[left][y];
 				lebende += spielfeld[right][y];
 				// lower row
-=======
-
-
-				//lebende = zaehlLebende();
-				lebende = 0;
-				lebende += spielfeld[left][up];
-				lebende += spielfeld[x][up];
-				lebende += spielfeld[right][up];
-				
-				lebende += spielfeld[left][y];
-				lebende += spielfeld[right][y];
-				
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
 				lebende += spielfeld[left][down];
 				lebende += spielfeld[x][down];
 				lebende += spielfeld[right][down];
-				
-<<<<<<< HEAD
-=======
 
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
-				//pruefeRegeln(x,y,lebende);
-				
-				
 				switch(lebende)
 				{
 					case 2: temp[x][y] = spielfeld[x][y];
@@ -226,7 +155,6 @@ int main(void)
 		memmove(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
-		//printSpielfeld();
 		
 		for (i = 0; i < YMAX; i++) 
 		{
@@ -237,7 +165,8 @@ int main(void)
 			}	
 	    }
 	}
-		t = clock() - t;
+	
+	t = clock() - t;
 	
   /* Reset screen colors */
     bgcolor (background);
@@ -264,120 +193,3 @@ int main(void)
     /* Done */
     return EXIT_SUCCESS;
 }
-
-
-/*
-void pruefeRegeln(unsigned char x, unsigned char y, unsigned char lebende){
-	//hier kommen meine regeln
-	
-	if(spielfeld[x][y] == 0 )
-	{
-		if(lebende == 3)
-			temp[x][y] = 1;	
-	}
-	if(spielfeld[x][y] == 1)
-	{
-		if(lebende == 2)
-			temp[x][y] = 1;
-	
-		if(lebende == 3)
-			temp[x][y] = 1;
-
-		if(lebende < 2)
-			temp[x][y] = 0;	
-
-		if(lebende > 3)				
-			temp[x][y] = 0;
-	}
-*/
-/*
-unsigned char zaehlLebende(){
-	unsigned char lebende = 0;
-	// lebende global machen
-	lebende += nachbarn[0][0];
-	lebende += nachbarn[1][0];
-	lebende += nachbarn[2][0];
-	lebende += nachbarn[0][1];
-	//lebende += nachbarn[1][1];
-	lebende += nachbarn[2][1];
-	lebende += nachbarn[0][2];
-	lebende += nachbarn[1][2];
-	lebende += nachbarn[2][2];
-
-	return lebende;
-}
-<<<<<<< HEAD
-*/
-/*
-=======
-*//*
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
-void findNachbarn(unsigned char x, unsigned char y)
-{
-	if( y - 1 < 0){
-		y = YMAX-1;
-    }
-    else if( y > YMAX-1){
-		y = 0;
-    }
-    else{
-        y = y;
-    }    
-    if( x - 1 < 0){
-		x = XMAX-1;
-    } 
-    else if( x > XMAX-1){
-        x = 0;
-    }
-    else{
-        x = x;
-    }
-	
-	if (y-1 < 0)
-	{
-		y =	YMAX - 1;
-	}
-	if(y+1 > YMAX -1)
-	{
-		y = 0;
-	}
-	if(x-1<0){
-		x = XMAX -1;
-	}
-	if(x+1 > XMAX -1)
-	{
-		x = 0;
-	}
-
-	nachbarn[0][0] = spielfeld[x - 1][y - 1];
-    nachbarn[0][1] = spielfeld[x][y - 1];
-    nachbarn[0][2] = spielfeld[x + 1][y - 1];
-
-    nachbarn[1][0] = spielfeld[x - 1][y];
-    nachbarn[1][2] = spielfeld[x + 1][y];
-
-    nachbarn[2][0] = spielfeld[x - 1][y + 1];
-    nachbarn[2][1] = spielfeld[x][y + 1];
-<<<<<<< HEAD
-    nachbarn[2][2] = spielfeld[x + 1][y + 1];	
-}
-*/
-void printSpielfeld() {
-    unsigned char x, y;
-    for (y = 0; y < YMAX; y++) {
-        for (x = 0; x < XMAX; x++) {
-            revers(spielfeld[x][y]); // Use the value directly as the argument for revers()
-            cputcxy(x, y, 32);
-        }
-    }
-=======
-    nachbarn[2][2] = spielfeld[x + 1][y + 1];
-
->>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
-}
-*//*
-void printSpielfeld() {
-    
-    
-}
-*/
