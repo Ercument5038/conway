@@ -16,7 +16,7 @@
 #define BOXSIZE 3
 #define ROUNDS 120
 
-void findNachbarn(unsigned char x, unsigned char y);
+//Void findNachbarn(unsigned char x, unsigned char y);
 //void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld();
 //unsigned char zaehlLebende();
@@ -101,7 +101,7 @@ int main(void)
 	while(round < ROUNDS && !kbhit()){
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
-				findNachbarn(x,y);
+				//findNachbarn(x,y);
 
 				up = y - 1;
 				down = y + 1;
@@ -231,9 +231,9 @@ unsigned char zaehlLebende(){
 
 	return lebende;
 }
-*/
+*//*
 void findNachbarn(unsigned char x, unsigned char y)
-{/*
+{
 	if( y - 1 < 0){
 		y = YMAX-1;
     }
@@ -252,7 +252,7 @@ void findNachbarn(unsigned char x, unsigned char y)
     else{
         x = x;
     }
-	*/
+	
 	if (y-1 < 0)
 	{
 		y =	YMAX - 1;
@@ -281,7 +281,7 @@ void findNachbarn(unsigned char x, unsigned char y)
     nachbarn[2][2] = spielfeld[x + 1][y + 1];
 
 }
-
+*/
 void printSpielfeld() {
     unsigned char x, y;
     for (y = 0; y < YMAX; y++) {
