@@ -74,6 +74,10 @@ signed char up;
 signed char down;
 signed char right;
 signed char left;
+unsigned char x;
+unsigned char y;
+unsigned char round = 0;
+
 
 int main(void)
 {
@@ -84,11 +88,6 @@ int main(void)
   unsigned      fps10;
   unsigned char background;
   unsigned char text;
-        
-  unsigned char x;
-  unsigned char y;
-  
-  unsigned char round = 0;
 		
   t = clock ();
 	//initSpielfeld(spielfeld);
