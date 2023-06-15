@@ -18,7 +18,7 @@
 
 //Void findNachbarn(unsigned char x, unsigned char y);
 //void initSpielfeld(int spielfeld [][YMAX]);
-void printSpielfeld();
+//void printSpielfeld();
 //unsigned char zaehlLebende();
 //void pruefeRegeln(unsigned char x, unsigned char y, unsigned char lebende);
 
@@ -89,14 +89,17 @@ int main(void)
   unsigned char background;
   unsigned char text;
 		
-  t = clock ();
+  
 	//initSpielfeld(spielfeld);
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_WHITE);
 	text = textcolor(COLOR_RED);
+	t = clock ();
 	//printSpielfeld();
-	for (i = 0; i < YMAX; i++) {
-        for (j = 0; j < XMAX; j++) {
+	for (i = 0; i < YMAX; i++) 
+	{
+        for (j = 0; j < XMAX; j++) 
+		{
             revers(spielfeld[j][i]); // Use the value directly as the argument for revers()
             cputcxy(j, i, 32);
         }
@@ -116,18 +119,18 @@ int main(void)
 
 				if (up < 0)
 				{
-					up = YMAX -1;
+					up = 24;
 				}
-				else if (down > YMAX -1)
+				else if (down > 24)
 				{
 					down = 0;
 				}
 
 				if (left < 0)
 				{
-					left = XMAX -1;
+					left = 39;
 				}
-				else if (right > XMAX -1)
+				else if (right > 39)
 				{
 					right = 0;
 				}
@@ -163,16 +166,19 @@ int main(void)
 			}// for x
 		}// for y
 
-		memcpy(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
+		memmove(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
 		//printSpielfeld();
-		for (i = 0; i < YMAX; i++) {
-			for (j = 0; j < XMAX; j++) {
+		
+		for (i = 0; i < YMAX; i++) 
+		{
+			for (j = 0; j < XMAX; j++) 
+			{
 				revers(spielfeld[j][i]); // Use the value directly as the argument for revers()
 				cputcxy(j, i, 32);
-        }
-    }
+			}	
+	    }
 	}
 		t = clock() - t;
 	
@@ -293,8 +299,9 @@ void findNachbarn(unsigned char x, unsigned char y)
     nachbarn[2][2] = spielfeld[x + 1][y + 1];
 
 }
-*/
+*//*
 void printSpielfeld() {
     
     
 }
+*/
