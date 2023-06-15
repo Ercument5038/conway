@@ -110,6 +110,21 @@ int main(void)
 				lebende += nachbarn[1][2];
 				lebende += nachbarn[2][2];
 				//pruefeRegeln(x,y,lebende);
+				if (spielfeld[x][y] == 1)
+				{
+					if (lebende < 2 || lebende > 3)
+					{
+						temp[x][y] = 0;
+					}
+				}
+				else
+				{
+					if (lebende == 3)
+					{
+						temp[x][y] = 1;
+					}
+				}
+				/*
 				switch(lebende)
 				{
 					case 2: temp[x][y] = spielfeld[x][y];
@@ -118,7 +133,7 @@ int main(void)
 					break;
 					default: temp[x][y] = 0;
 					break;
-				}
+				}*/
 			}// for x
 		}// for y
 
@@ -198,7 +213,7 @@ unsigned char zaehlLebende(){
 }
 */
 void findNachbarn(unsigned char x, unsigned char y)
-{
+{/*
 	if( y - 1 < 0){
 		y = YMAX-1;
     }
@@ -217,8 +232,24 @@ void findNachbarn(unsigned char x, unsigned char y)
     else{
         x = x;
     }
+	*/
+	if (y-1 < 0)
+	{
+		y =	YMAX - 1;
+	}
+	if(y+1 > YMAX -1)
+	{
+		y = 0;
+	}
+	if(x-1<0){
+		x = XMAX -1;
+	}
+	if(x+1 > XMAX -1)
+	{
+		x = 0;
+	}
 
-    nachbarn[0][0] = spielfeld[x - 1][y - 1];
+	nachbarn[0][0] = spielfeld[x - 1][y - 1];
     nachbarn[0][1] = spielfeld[x][y - 1];
     nachbarn[0][2] = spielfeld[x + 1][y - 1];
 
@@ -227,7 +258,8 @@ void findNachbarn(unsigned char x, unsigned char y)
 
     nachbarn[2][0] = spielfeld[x - 1][y + 1];
     nachbarn[2][1] = spielfeld[x][y + 1];
-    nachbarn[2][2] = spielfeld[x + 1][y + 1];	
+    nachbarn[2][2] = spielfeld[x + 1][y + 1];
+
 }
 
 void printSpielfeld() {
