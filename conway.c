@@ -19,7 +19,7 @@
 void findNachbarn(unsigned char x, unsigned char y);
 //void initSpielfeld(int spielfeld [][YMAX]);
 void printSpielfeld();
-unsigned char zaehlLebende();
+//unsigned char zaehlLebende();
 //void pruefeRegeln(unsigned char x, unsigned char y, unsigned char lebende);
 
 //static const char array[XMAX][YMAX] 
