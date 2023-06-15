@@ -69,26 +69,27 @@ const static unsigned short spielfeld[XMAX][YMAX]= {
 //static int spielfeld[XMAX][YMAX];
 static unsigned short temp[XMAX][YMAX];
 //static unsigned char nachbarn[BOXSIZE][BOXSIZE];
-unsigned char lebende;
-signed char up;
-signed char down;
-signed char right;
-signed char left;
-unsigned char x;
-unsigned char y;
-unsigned char round = 0;
-unsigned char i, j;
 
 int main(void)
 {
-  clock_t       t;
-  unsigned long sec;
-  unsigned      sec10;
-  unsigned long fps;
-  unsigned      fps10;
-  unsigned char background;
-  unsigned char text;
-		
+	clock_t       t;
+	unsigned long sec;
+	unsigned      sec10;
+	unsigned long fps;
+	unsigned      fps10;
+	unsigned char background;
+	unsigned char text;
+	
+	register unsigned char lebende;
+	signed char up;
+	signed char down;
+	signed char right;
+	signed char left;
+	register unsigned char x;
+	register unsigned char y;
+	register unsigned char round = 0;
+	register unsigned char i, j;
+
   
 	//initSpielfeld(spielfeld);
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
