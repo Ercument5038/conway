@@ -77,7 +77,7 @@ signed char left;
 unsigned char x;
 unsigned char y;
 unsigned char round = 0;
-
+unsigned char i, j;
 
 int main(void)
 {
@@ -94,10 +94,17 @@ int main(void)
   clrscr(); // clears screen and moves the cursor to the upper left corner of the screen
 	background = bgcolor(COLOR_WHITE);
 	text = textcolor(COLOR_RED);
-	printSpielfeld();
-//	signal (int sig, __sigfunc func);
+	//printSpielfeld();
+	for (i = 0; i < YMAX; i++) {
+        for (j = 0; j < XMAX; j++) {
+            revers(spielfeld[j][i]); // Use the value directly as the argument for revers()
+            cputcxy(j, i, 32);
+        }
+    }
 
-	while(round < ROUNDS && !kbhit()){
+	while(round < ROUNDS && !kbhit())
+	{
+		
 		for(y = 0; y< YMAX; y++){
 			for(x = 0; x< XMAX; x++){
 				//findNachbarn(x,y);
@@ -159,7 +166,13 @@ int main(void)
 		memcpy(spielfeld,temp,2000); // kopiert die neuen lebende auf das spielfeld array, XMAX * YMAX gibt die number of bytes to be copied an
 	
 		round++;
-		printSpielfeld();	
+		//printSpielfeld();
+		for (i = 0; i < YMAX; i++) {
+			for (j = 0; j < XMAX; j++) {
+				revers(spielfeld[j][i]); // Use the value directly as the argument for revers()
+				cputcxy(j, i, 32);
+        }
+    }
 	}
 		t = clock() - t;
 	
@@ -282,11 +295,6 @@ void findNachbarn(unsigned char x, unsigned char y)
 }
 */
 void printSpielfeld() {
-    unsigned char x, y;
-    for (y = 0; y < YMAX; y++) {
-        for (x = 0; x < XMAX; x++) {
-            revers(spielfeld[x][y]); // Use the value directly as the argument for revers()
-            cputcxy(x, y, 32);
-        }
-    }
+    
+    
 }
