@@ -103,15 +103,15 @@ int main(void)
 	unsigned char background;
 	unsigned char text;
 	
-	register unsigned char lebende;
+	unsigned char lebende;
 	signed char up;
 	signed char down;
 	signed char right;
 	signed char left;
-	register unsigned char x;
-	register unsigned char y;
-	register unsigned char round = 0;
-	register unsigned char i, j;
+	unsigned char x;
+	unsigned char y;
+	unsigned char round = 0;
+	unsigned char i, j;
 
   
 >>>>>>> 4e98c0af1c71dd1b4927450766c7c78aeac4c3f4
